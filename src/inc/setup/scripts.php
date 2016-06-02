@@ -272,6 +272,11 @@ final class MAKE_Setup_Scripts extends MAKE_Util_Modules implements MAKE_Setup_S
 	public function enqueue_frontend_styles() {
 		// Parent stylesheet, if child theme is active
 		// @link http://justintadlock.com/archives/2014/11/03/loading-parent-styles-for-child-themes
+		
+		/**
+		* set the main version to use the Parent Theme version number
+		*/
+		$mainVersion = TTF_VERSION;
 		if ( is_child_theme() && defined( 'TTFMAKE_CHILD_VERSION' ) && version_compare( TTFMAKE_CHILD_VERSION, '1.1.0', '>=' ) ) {
 			/**
 			 * Filter: Toggle whether the parent stylesheet loads along with the child one.
@@ -288,6 +293,11 @@ final class MAKE_Setup_Scripts extends MAKE_Util_Modules implements MAKE_Setup_S
 					TTFMAKE_VERSION
 				);
 			}
+			
+			/**
+			* set the main version to use the Child Theme version number
+			*/
+			$mainVersion = TTF_VERSION;
 		}
 
 		// Main stylesheet
@@ -295,7 +305,7 @@ final class MAKE_Setup_Scripts extends MAKE_Util_Modules implements MAKE_Setup_S
 			'make-main',
 			get_stylesheet_uri(),
 			array(),
-			TTFMAKE_VERSION
+			$mainVersion
 		);
 
 		// Add stylesheet dependencies
